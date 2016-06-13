@@ -8,17 +8,17 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create();
 
 // HTML files
-var htmlSrc = ['**/*.html','!node_modules/**','!build/**'];
-var htmlDest = 'build';
+var htmlSrc = ['**/*.html','!node_modules/**','!builds/**'];
+var htmlDest = 'builds';
 // Images
-var imgSrc = 'img/*';
-var imgDest = 'build/img';
+var imgSrc = ['**/img/*','!node_modules/**','!builds/**'];
+var imgDest = 'builds';
 // Stylesheets
-var cssSrc = 'stylus/**/*.styl';
-var cssDest = 'build/css';
+var cssSrc = ['**/*.styl','!node_modules/**','!builds/**'];
+var cssDest = 'builds';
 // Sripts
-var jsSrc = 'js/**/*.js';
-var jsDest = 'build/js';
+var jsSrc = ['**/*.js','!node_modules/**','!builds/**','!gulpfile.js'];
+var jsDest = 'builds';
 
 function errorLog(error) {
   console.error(error.toString());
@@ -73,7 +73,7 @@ gulp.task('images', function() {
 gulp.task('serve', function() {
   browserSync.init({
       server: {
-          baseDir: "./build"
+          baseDir: "./builds"
       }
   });
 });
@@ -86,5 +86,6 @@ gulp.task('watch', function (){
 });
 
 
+// gulp.task('default', ['html']);
 gulp.task('default', ['html','images','styles','scripts','serve','watch']);
 // gulp.task('default', ['serve','watch']);
