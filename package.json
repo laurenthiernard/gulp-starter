@@ -1,0 +1,22 @@
+{
+  "name": "project",
+  "version": "0.0.1",
+  "description": "Laurent Hiernard's Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Laurent Hiernard",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "latest",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-newer": "latest",
+    "gulp-stylus": "latest",
+    "gulp-uglify": "latest",
+    "imagemin-pngquant": "latest"
+  },
+  "dependencies": {}
+}
