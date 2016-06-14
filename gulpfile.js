@@ -27,10 +27,10 @@ function errorLog(error) {
 
 gulp.task('html', function() {
   return gulp.src(htmlSrc)
-  //.pipe(newer(htmlDest))
+  .pipe(newer(htmlDest))
   .on('error', errorLog)
   .pipe(gulp.dest(htmlDest))
-  .pipe(browserSync.stream({once: true}));
+  .pipe(browserSync.stream({once: false}));
 });
 
 gulp.task('styles', function(){
