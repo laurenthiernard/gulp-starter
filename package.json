@@ -16,7 +16,10 @@
     "gulp-newer": "latest",
     "gulp-stylus": "latest",
     "gulp-uglify": "latest",
-    "imagemin-pngquant": "latest"
+    "gulp-util": "latest",
+    "imagemin-pngquant": "latest",
+    "gulp-if": "^2.0.1",
+    "yargs": "^4.7.1"
   },
   "dependencies": {}
 }

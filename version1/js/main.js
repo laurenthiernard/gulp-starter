@@ -1,1 +1,47 @@
-function preInit(){setupDom(),Enabler.isInitialized()?init():Enabler.addEventListener(studio.events.StudioEvent.INIT,init)}function setupDom(){creative.dom={},creative.dom.mainContainer=document.getElementById("main-container"),creative.dom.exit=document.getElementById("exit")}function init(){addListeners(),Enabler.isPageLoaded()?show():Enabler.addEventListener(studio.events.StudioEvent.PAGE_LOADED,show)}function addListeners(){creative.dom.exit.addEventListener("click",exitClickHandler)}function show(){creative.dom.exit.style.display="block"}function exitClickHandler(){stopAnimation(),Enabler.exit("BackgroundExit")}function stopAnimation(){mainMc.seek(15)}var creative={};window.addEventListener("load",preInit);var mainMc=new TimelineLite;mainMc.to("#text1",.5,{opacity:1,ease:Sine.easeOut}).to("#frontBG",.5,{top:"148px",ease:Sine.easeOut,autoAlpha:1},"-=0.5").to("#backBG",.8,{top:"139px",ease:Sine.easeOut,autoAlpha:1},"-=0.4").to("#sign",.7,{top:"122px",ease:Sine.easeOut},"-=0.2").to(["#frontBG","#backBG","#sign"],.8,{scaleX:1,scaleY:1,ease:Sine.easeOut,delay:2.5}).to("#sign",.8,{top:"82px",left:"95px",ease:Sine.easeOut},"-=0.8").to("#text1",.5,{opacity:0,ease:Sine.easeOut},"-=0.0").to("#text2a",.8,{opacity:1,ease:Sine.easeOut},"text2").to("#text2b",.8,{opacity:1,ease:Sine.easeOut},"text2").to(["#bgAnimated","#frame1","#text2"],.2,{opacity:0,ease:Sine.easeOut,delay:4}).add("endFrame").to("#text3",.8,{opacity:1,ease:Sine.easeOut},"endFrame").to("#logo",.5,{opacity:1,ease:Sine.easeOut},"endFrame").to("#cta",2,{opacity:1,scaleX:1,scaleY:1,ease:Elastic.easeOut.config(1,.6),y:0},"endFrame");
+function preInit() {
+    setupDom(), Enabler.isInitialized() ? init() : Enabler.addEventListener(studio.events.StudioEvent.INIT, init)
+}
+
+function setupDom() {
+    creative.dom = {}, creative.dom.mainContainer = document.getElementById("main-container"), creative.dom.exit = document.getElementById("exit")
+}
+
+function init() {
+    addListeners(), Enabler.isPageLoaded() ? show() : Enabler.addEventListener(studio.events.StudioEvent.PAGE_LOADED, show)
+}
+
+function addListeners() {
+    creative.dom.exit.addEventListener("click", exitClickHandler)
+}
+
+function show() {
+    creative.dom.exit.style.display = "block"
+}
+
+function stopAnimation() {
+    mainMc.seek(15)
+}
+
+// -------------------------------------------------------------------------------
+var creative = {};
+window.addEventListener("load", preInit);
+var mainMc = new TimelineLite;
+
+mainMc
+  .add("intro")
+  .to("#lollies", 2.1, { x: "-115px", ease: Quart.easeOut}, "intro")
+  .to("#car", 2.4, { x: "218px", ease: Back.easeOut}, "intro")
+  .to("#wheel-left", 2.4, { rotation: 1080, ease: Back.easeOut}, "intro")
+  .to("#wheel-right", 2.4, { rotation: 1080, ease: Back.easeOut}, "intro")
+  .to("#car-body", .2, { rotation: 0.5, ease: Quart.easeOut}, "-=3.2")
+  .to("#car-body", .2, { rotation: 0, ease: Quart.easeOut}, "-=0.95")
+
+  .to("#text1", .3, { opacity: 1, ease: Sine.easeOut}, "-=0.7")
+
+  .to("#text1", .2, { autoAlpha: 0, ease: Sine.easeOut}, "+=3.4")
+  .to("#cta", .3, { opacity: 1, ease: Sine.easeOut}, "+=.2")
+
+
+function exitClickHandler() {
+  stopAnimation(), Enabler.exit("BackgroundExit")
+}
