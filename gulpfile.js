@@ -2,11 +2,13 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     argv = require('yargs').argv,
     gulpif = require('gulp-if'),
+    lazypipe = require('lazypipe'),
+    combine = require('stream-combiner2'),
     uglify = require('gulp-uglify'),
     stylus = require('gulp-stylus'),
     imagemin = require('gulp-imagemin'),
+    pngcrush = require('imagemin-pngcrush'),
     newer = require('gulp-newer'),
-    pngquant = require('imagemin-pngquant'),
     autoprefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync').create();
 
@@ -31,6 +33,7 @@ gulp.task('html', function() {
   .pipe(newer(htmlDest))
   .on('error', gutil.log)
   .pipe(gulp.dest(htmlDest))
+  .on('start', function(){ if (argv.production) {gutil.log('*PRODUCTION*')} else gutil.log('*DEVELOPMENT*'); })
   .pipe(browserSync.stream());
 });
 
@@ -39,6 +42,7 @@ gulp.task('js', function(){
   .pipe(gulpif(argv.production, uglify()))
   .on('error', gutil.log)
   .pipe(gulp.dest(jsDest))
+  .on('end', function(){gutil.log('JS processed')})
   .pipe(browserSync.stream());
   // .pipe(browserSync.stream({once: true}));
 });
@@ -58,17 +62,28 @@ gulp.task('images', function() {
   return gulp.src(imgSrc)
   .on('error', gutil.log)
   .pipe(newer(imgDest))
-  .pipe(gulpif(argv.production, imagemin()))
+  // .pipe(gulpif(argv.production, imagemin()))
+  .pipe(gulpif(argv.production, imagemin({
+    progressive: true,
+    interlaced: true,
+    svgoPlugins: [{removeViewBox: true}],
+    use: [pngcrush()]
+  })))
   // .pipe(gulpif(argv.production, imagemin({optimizationLevel: 5, progressive: true, interlaced: true, svgoPlugins: [{removeViewBox: true}], use: [pngquant()]})))
   // use: [pngquant(), gifsicle(), svgo(), jpegtran()]
   .pipe(gulp.dest(imgDest))
   .pipe(browserSync.stream());
 });
 
+// var lazypipe = require('lazypipe');
+// var saysomething = lazypipe()
+//   gutil.log(argv.production);
+
 gulp.task('fonts', function() {
   return gulp.src(fontSrc)
-  .on('error', gutil.log)
+
   .pipe(gulp.dest(fontDest));
+  // .pipe(gulpif(argv.production, gutil.log('proooood')));
 });
 
 gulp.task('watch', function () {

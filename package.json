@@ -12,13 +12,15 @@
     "browser-sync": "latest",
     "gulp": "latest",
     "gulp-autoprefixer": "latest",
+    "gulp-if": "^2.0.1",
     "gulp-imagemin": "latest",
     "gulp-newer": "latest",
     "gulp-stylus": "latest",
     "gulp-uglify": "latest",
     "gulp-util": "latest",
-    "imagemin-pngquant": "latest",
-    "gulp-if": "^2.0.1",
+    "imagemin-pngcrush": "^5.0.0",
+    "lazypipe": "^1.0.1",
+    "stream-combiner2": "^1.1.1",
     "yargs": "^4.7.1"
   },
   "dependencies": {}
